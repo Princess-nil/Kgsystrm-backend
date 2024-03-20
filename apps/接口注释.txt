@@ -1,0 +1,149 @@
+1.主页：get请求返回参数 路由：“/"
+{
+  "code": 200,
+  "data": {
+    "graphcnt": {
+      "entitycount": 54645,
+      "eventcount": 4884,
+      "gpcount": 15,
+      "gpid": 1,
+      "linkcount": 456456,
+      "updatatime": "2024-03-19 17:36:42"
+    },
+    "graphs": [
+      {
+        "entitycount": 1,
+        "eventcount": 3,
+        "graphdescription": "123",
+        "graphid": 1,
+        "graphname": "123",
+        "linkcount": 2,
+        "updatatime": "2024-03-20 11:10:27"
+      },
+      {
+        "entitycount": 4,
+        "eventcount": 6,
+        "graphdescription": "456",
+        "graphid": 2,
+        "graphname": "456",
+        "linkcount": 5,
+        "updatatime": "2024-03-20 11:16:09"
+      }
+    ]
+  },
+  "message": ""
+}
+
+2.登录页面，post请求返回参数，路由：”/login“
+要求post传参为：form表单，含有两个参数，一个username，一个userpwd
+（1）长度不符合
+{
+  "code": 400,
+  "data": {},
+  "message": "请输入正确长度的用户名！"
+}
+（2）账号或密码错误
+{
+  "code": 400,
+  "data": {},
+  "message": "账号或者密码错误!"
+}
+（3）success
+{
+  "code": 200,
+  "data": {
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTcxMDkxNDg2NSwianRpIjoiZWM0YTkzMDQtNzE3MS00YTMwLThjNTQtMjM1YjY2ZWE3ZDVmIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6MSwibmJmIjoxNzEwOTE0ODY1LCJjc3JmIjoiYTMxNjg2NzEtNWQ5MC00OThmLWJmMTctYjk2MWEzZTU1MzYzIiwiZXhwIjoxNzEwOTE1NzY1fQ.A9CKdVGfL-clJN_SDF8e3IZhRmUyki9hwsMRM5IXMMA",
+    "user": {
+      "userid": 1,
+      "username": "admin",
+      "userpwd": "123456"
+    }
+  },
+  "message": ""
+}
+
+3.退出登录，get请求返回参数，路由：”/logout“
+{
+    "code": 200,
+    "data": {},
+    "message": "退出登录成功!"
+}
+
+4.数据包列表，get，“/databag”
+{
+  "code": 200,
+  "data": [
+    {
+      "author": {
+        "userid": 1,
+        "username": "admin"
+      },
+      "createtime": "2024-03-20 14:15:33",
+      "datacount": 200,
+      "datadescription": "xxx",
+      "dataid": 2,
+      "dataname": "xxx",
+      "userid": 1
+    },
+    {
+      "author": {
+        "userid": 1,
+        "username": "admin"
+      },
+      "createtime": "2024-03-18 17:34:51",
+      "datacount": 1000,
+      "datadescription": "红楼梦xxxxxxxxxxxx",
+      "dataid": 1,
+      "dataname": "红楼梦",
+      "userid": 1
+    }
+  ],
+  "message": ""
+}
+
+5.新建数据包，post，"/databag/add"
+要求post传参为：form表单，含有三个参数，一个dataname，一个datadescription，一个userid
+{
+  "code": 200,
+  "data": {
+    "author": {
+      "userid": 1,
+      "username": "admin"
+    },
+    "createtime": "2024-03-20 15:18:50",
+    "datacount": 0,
+    "datadescription": "dasdas",
+    "dataid": 3,
+    "dataname": "dasdas",
+    "userid": 1
+  },
+  "message": ""
+}
+
+6.编辑数据包，post，"/databag/edit"
+要求post传参为：form表单，含有三个参数，一个dataname，一个datadescription，一个dataid
+{
+  "code": 200,
+  "data": {
+    "author": {
+      "userid": 1,
+      "username": "admin"
+    },
+    "createtime": "2024-03-20 15:18:50",
+    "datacount": 0,
+    "datadescription": "666",
+    "dataid": 3,
+    "dataname": "666",
+    "userid": 1
+  },
+  "message": ""
+}
+
+7.删除数据包，post，“/databag/delete”
+要求post传参为：form表单，含有1个参数，dataid
+{
+  "code": 200,
+  "data": {},
+  "message": ""
+}
+
