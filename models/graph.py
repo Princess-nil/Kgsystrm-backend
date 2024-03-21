@@ -22,7 +22,7 @@ class GraphCount(db.Model, SerializerMixin):
     updatatime = db.Column(db.DateTime, default=datetime.now)
 
 class DataSet(db.Model, SerializerMixin):
-
+    serialize_only = ("dataid", "dataname", "datadescription", "createtime", "datacount", "author")
     __tablename__ = 'dataset'
     dataid = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
     dataname = db.Column(db.String(20), nullable=False)
@@ -33,3 +33,13 @@ class DataSet(db.Model, SerializerMixin):
 
     author = db.relationship("User", backref=db.backref("datasets"))
 
+class File(db.Model, SerializerMixin):
+    serialize_only = ("fileid", "filename", "filepath", "createtime", "dataset")
+    __tablename__ = 'file'
+    fileid = db.Column(db.Integer, primary_key=True, nullable=False, autoincrement=True)
+    filename = db.Column(db.String(20), nullable=False)
+    filepath = db.Column(db.String(50), nullable=False)
+    createtime = db.Column(db.DateTime, default=datetime.now)
+    dataid = db.Column(db.Integer, db.ForeignKey('dataset.dataid'))
+
+    dataset = db.relationship("DataSet", backref=db.backref("files"))

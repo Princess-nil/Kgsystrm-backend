@@ -232,4 +232,16 @@ form表单，传入dataname
   "message": ""
 }
 
-11.
+11.选择数据集后返回文件名列表，post,'/creategraph/select'
+传入form表单，含有一个dataid
+{
+    "code": 200,
+    "data": {
+        "file_list": [
+            "123",
+            "155"
+        ]
+    },
+    "message": ""
+}
+

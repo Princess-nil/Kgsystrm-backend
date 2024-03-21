@@ -2,7 +2,7 @@ from flask import Blueprint, request, session, redirect
 from utils import restful
 from flask_jwt_extended import create_access_token
 from models.auth import User
-from models.graph import Graph, GraphCount, DataSet
+from models.graph import Graph, GraphCount, DataSet, File
 from .forms import LoginForm, DataSetAddForm, DataSetEditForm
 from exts import db
 
@@ -101,13 +101,46 @@ def databag_searcher():
     d_list = [d.to_dict() for d in dataset]
     return restful.ok(data={"databag_list": d_list})
 
+@bp.route('/databag/uploadfile', methods=['POST'])
+def databag_uploadfile():
+    pass
+
+@bp.route('/databag/addfile', methods=['POST'])
+def databag_addfile():
+    pass
+
+@bp.route('/databag/deletefile', methods=['POST'])
+def databag_deletefile():
+    pass
+
 @bp.get('/creategraph')
 def creategraph():
     dataset = DataSet.query.all()
     d_list = [d.to_dict() for d in dataset]
     return restful.ok(data={"databag_list": d_list})
 
+@bp.route('/creategraph/select', methods=['POST'])
+def creategraph_select():
+    dataid = request.form.get("dataid")
+    if not dataid:
+        return restful.params_error(message="没有传入id！")
+    try:
+        dataset = DataSet.query.get(dataid)
+        files = dataset.files
+    except Exception as e:
+        print(e)
+        return restful.params_error(message="此数据集无文件")
+    file_list = [f.filename for f in files]
+    return restful.ok(data={"file_list": file_list})
 
+#抽取三元组
+@bp.route('/creategraph/....')
+def creategraph_xxx():
+    pass
+
+@bp.route('/creategraph/submit')
+def creategraph_submit():
+    pass
 
 @bp.route('/login', methods=['POST'])
 def login():
