@@ -13,11 +13,31 @@ def index():
     graph = Graph.query.all()
     graphcnt = GraphCount.query.first()
     g_list = []
-    for g in graph:
-        g_list.append(g.to_dict())
+    for x in graph:
+        g_list.append(x.to_dict())
     return restful.ok(data={'graphs': g_list, 'graphcnt': graphcnt.to_dict()})
 
-
+@bp.route('/delete', methods=['POST'])
+def delete():
+    graphid = request.form.get('graphid')
+    if not graphid:
+        return restful.params_error(message="没有传入id！")
+    try:
+        graph = Graph.query.get(graphid)
+    except Exception as e:
+        return restful.params_error(message="此图谱不存在！")
+    entitycount = graph.entitycount
+    linkcount = graph.linkcount
+    eventcount = graph.eventcount
+    graphcnt = GraphCount.query.first()
+    graphcnt.entitycount -= entitycount
+    graphcnt.linkcount -= linkcount
+    graphcnt.eventcount -= eventcount
+    db.session.delete(graph)
+    db.session.commit()
+    graph_list = Graph.query.all()
+    g_list = [x.to_dict() for x in graph_list]
+    return restful.ok(data={'graphcnt': graphcnt.to_dict(), 'g_list': g_list})
 
 @bp.get('/databag')
 def databag():
@@ -70,6 +90,24 @@ def databag_delete():
     db.session.delete(dataset)
     db.session.commit()
     return restful.ok()
+
+@bp.route('/databag/searcher', methods=['POST'])
+def databag_searcher():
+    dataname = request.form.get("dataname")
+    try:
+        dataset = DataSet.query.filter_by(dataname=dataname).all()
+    except Exception as e:
+        return restful.params_error(message="此数据集不存在！")
+    d_list = [d.to_dict() for d in dataset]
+    return restful.ok(data={"databag_list": d_list})
+
+@bp.get('/creategraph')
+def creategraph():
+    dataset = DataSet.query.all()
+    d_list = [d.to_dict() for d in dataset]
+    return restful.ok(data={"databag_list": d_list})
+
+
 
 @bp.route('/login', methods=['POST'])
 def login():

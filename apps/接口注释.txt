@@ -147,3 +147,89 @@
   "message": ""
 }
 
+8.删除图谱（首页）,post,'/delete'
+form表单,要求传入图谱id,返回删除后的图谱列表和删除后的图谱统计
+{
+  "code": 200,
+  "data": {
+    "g_list": [
+      {
+        "entitycount": 4,
+        "eventcount": 6,
+        "graphdescription": "456",
+        "graphid": 2,
+        "graphname": "456",
+        "linkcount": 5,
+        "updatatime": "2024-03-20 11:16:09"
+      }
+    ],
+    "graphcnt": {
+      "entitycount": 54644,
+      "eventcount": 4881,
+      "gpcount": 15,
+      "gpid": 1,
+      "linkcount": 456454,
+      "updatatime": "2024-03-19 17:36:42"
+    }
+  },
+  "message": ""
+}
+
+9.数据包搜索，post,'/databag/searcher'
+form表单，传入dataname
+{
+  "code": 200,
+  "data": {
+    "databag_list": [
+      {
+        "author": {
+          "userid": 1,
+          "username": "admin"
+        },
+        "createtime": "2024-03-18 17:34:51",
+        "datacount": 1000,
+        "datadescription": "红楼梦xxxxxxxxxxxx",
+        "dataid": 1,
+        "dataname": "红楼梦",
+        "userid": 1
+      }
+    ]
+  },
+  "message": ""
+}
+
+10.创建图谱的列表（拿到数据包名称，做下拉列表），get
+{
+  "code": 200,
+  "data": {
+    "databag_list": [
+      {
+        "author": {
+          "userid": 1,
+          "username": "admin"
+        },
+        "createtime": "2024-03-18 17:34:51",
+        "datacount": 1000,
+        "datadescription": "红楼梦xxxxxxxxxxxx",
+        "dataid": 1,
+        "dataname": "红楼梦",
+        "userid": 1
+      },
+      {
+        "author": {
+          "userid": 1,
+          "username": "admin"
+        },
+        "createtime": "2024-03-20 14:15:33",
+        "datacount": 200,
+        "datadescription": "xxx",
+        "dataid": 2,
+        "dataname": "xxx",
+        "userid": 1
+      }
+    ]
+  },
+  "message": ""
+}
+
+11.
