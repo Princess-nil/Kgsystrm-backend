@@ -29,3 +29,7 @@ class DataSetEditForm(BaseForm):
     dataname = StringField(validators=[Length(1, 20, message="请输入正确长度的数据集名称！")])
     datadescription = StringField(validators=[Length(1, 200, message="请输入正确长度的描述！")])
     dataid = IntegerField(validators=[InputRequired(message="请传入数据集ID")])
+
+class UploadFileForm(BaseForm):
+    file = FileField(validators=[FileAllowed(['txt'],
+        message="文件格式不符合要求！"), FileSize(max_size=1024*1024*5, message="文件最大不能超过2M！")])
